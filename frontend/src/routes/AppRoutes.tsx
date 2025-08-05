@@ -4,10 +4,11 @@ import Blog from '../pages/Blog';
 import ProtectedRoute from './ProtectedRoute';
 import AuthLayout from '../layouts/AuthLayout';
 import { useAuth } from '../hooks/useAuth';
+import Home from '../pages/Home';
 
 function DefaultRedirect() {
   const { user } = useAuth();
-  return <Navigate to={user ? "/blog" : "/login"} replace />;
+  return <Navigate to={user ? "/home" : "/login"} replace />;
 }
 
 export default function AppRoutes() {
@@ -18,14 +19,10 @@ export default function AppRoutes() {
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
         </Route>
-        <Route
-          path="/blog"
-          element={
-            <ProtectedRoute>
-              <Blog />
-            </ProtectedRoute>
-          }
-        />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/blog" element={<Blog />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

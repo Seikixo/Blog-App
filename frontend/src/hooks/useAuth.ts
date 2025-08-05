@@ -28,9 +28,15 @@ export const useAuth = () => {
         onSuccess: (data) => {
             localStorage.setItem('token', data.token);
             queryClient.setQueryData(['auth-user'], data.user);
-            navigate('/blog');
+            navigate('/home');
         }
     })
+
+    const logout = () => {
+        localStorage.removeItem('token'); 
+        queryClient.removeQueries({ queryKey: ['auth-user'] });
+        navigate('/login');
+    };
 
     const login = async(credentials: Credentials) => {
         return loginMutation.mutateAsync(credentials);
@@ -39,6 +45,7 @@ export const useAuth = () => {
     return {
         user,
         login,
+        logout,
         isLoading: isLoading || loginMutation.isPending
     }
 }
