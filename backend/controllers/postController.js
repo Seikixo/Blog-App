@@ -11,10 +11,9 @@ const createPost = async (req, res) => {
     const post = await Post.create({
       title,
       content,
-      user: req.user._id, // Fixed: Set user field
+      user: req.user._id,
     });
 
-    // Populate user info before returning
     await post.populate('user', 'name email');
     
     res.status(201).json(post);
@@ -26,9 +25,9 @@ const createPost = async (req, res) => {
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
-      .populate('user', 'name email') // Changed from 'user' to 'user'
-      .populate('likes', 'name') // Optional: populate likes with user names
-      .populate('dislikes', 'name') // Optional: populate dislikes with user names
+      .populate('user', 'name email') 
+      .populate('likes', 'name') 
+      .populate('dislikes', 'name')
       .sort({ createdAt: -1 });
       
     const formatted = posts.map(post => ({
