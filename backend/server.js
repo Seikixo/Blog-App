@@ -4,6 +4,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const allowedOrigins = [
   'http://localhost:3000', 
@@ -30,11 +31,11 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 
+app.use('/api/users', userRoutes);
+
 app.get('/test', (req, res) => {
   res.send('API is running...');
 });
-
-
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
