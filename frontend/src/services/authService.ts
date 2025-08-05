@@ -1,9 +1,5 @@
+import type { Credentials } from "../types/types";
 import axiosInstance from "./axiosService"
-
-interface Credentials {
-    email: string; 
-    password: string;
-}
 
 export const login = async(credentials: Credentials) => {
     try {

@@ -20,7 +20,7 @@ export default function Header() {
             to="/home"
             className="text-white text-xl font-semibold px-4 py-2 flex items-center"
             >
-            My App
+            Blog App
             </Link>
             <NavbarToggle />
             <NavbarCollapse>
