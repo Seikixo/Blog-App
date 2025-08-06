@@ -32,6 +32,41 @@ Users can register, log in, create posts, and interact with blog content in a re
 
 ---
 
+## 📦 Tech Stack & Version Info
+
+> ⚠️ Node version used: **v22.12.0**
+
+### 🖥 Frontend (`/frontend`)
+
+| Package                   | Version     |
+|---------------------------|-------------|
+| React                     | ^19.1.0     |
+| React DOM                 | ^19.1.0     |
+| React Router DOM          | ^7.7.1      |
+| React Icons               | ^5.5.0      |
+| Vite                      | ^7.0.4      |
+| Tailwind CSS              | ^4.1.11     |
+| Flowbite                  | ^3.1.2      |
+| Flowbite React            | ^0.12.6     |
+| Axios                     | ^1.11.0     |
+| TanStack React Query      | ^5.84.1     |
+| TypeScript                | ~5.8.3      |
+| ESLint                    | ^9.30.1     |
+
+### 🔧 Backend (`/backend`)
+
+| Package             | Version     |
+|---------------------|-------------|
+| Express             | ^5.1.0      |
+| Mongoose            | ^8.17.0     |
+| JSON Web Token      | ^9.0.2      |
+| BcryptJS            | ^3.0.2      |
+| CORS                | ^2.8.5      |
+| Express Rate Limit  | ^8.0.1      |
+| Dotenv              | ^17.2.1     |
+
+---
+
 ## 📦 Installation
 
 ### 1. Clone the repository
