@@ -15,6 +15,12 @@ export interface UpdateUserPayload {
   currentPassword?: string;
 }
 
+export interface RegisterUserPayload {
+  name: string;
+  email: string;
+  password: string;  
+}
+
 export interface Post {
   _id: string;
   title: string;
@@ -30,6 +36,6 @@ export interface Post {
 }
 
 export interface Credentials {
-    email: string; 
-    password: string;
+  email: string; 
+  password: string;
 }

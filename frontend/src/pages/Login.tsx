@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 export default function Login() {
 
@@ -38,6 +39,7 @@ export default function Login() {
             <TextInput id="password" type="password" value={credentials.password} onChange={(e) => setCredentials({ ...credentials, password: e.target.value })} required />
             </div>
             <Button type="submit" className="w-full cursor-pointer mt-14">{isLoading ? <Spinner/> : "Login"}</Button>
+            <Link to={"/register"}>Register</Link>
         </form>
         </div>        
     )

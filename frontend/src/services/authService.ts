@@ -1,4 +1,4 @@
-import type { Credentials } from "../types/types";
+import type { Credentials, RegisterUserPayload } from "../types/types";
 import axiosInstance from "./axiosService"
 
 export const login = async(credentials: Credentials) => {
@@ -10,4 +10,14 @@ export const login = async(credentials: Credentials) => {
         throw error;
     }
 
+}
+
+export const register = async(registerUserPayload: RegisterUserPayload) => {
+    try {
+        const response = await axiosInstance.post('/auth/register', registerUserPayload);
+        return response.data
+    }
+    catch(error) {
+        throw error;
+    }
 }

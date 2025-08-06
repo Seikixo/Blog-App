@@ -9,8 +9,8 @@ interface ProfileProps {
 
 export default function Profile({ onClose }: ProfileProps) {
   const { profile, isLoading, updateError, update } = useProfile();
-    const [showSuccessToast, setShowSuccessToast] = useState(false);
-    const [showErrorToast, setShowErrorToast] = useState(false);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
   const [name, setName] = useState(profile?.name || "");
   const [email, setEmail] = useState(profile?.email || "");
   const [password, setPassword] = useState("");

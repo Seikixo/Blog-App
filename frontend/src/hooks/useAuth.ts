@@ -1,14 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
-import { login as loginApi } from "../services/authService";
+import { login as loginApi, register as registerApi } from "../services/authService";
 import { getUserProfile } from "../services/userService";
 import { useNavigate } from "react-router-dom";
-import type { Credentials } from "../types/types";
+import type { Credentials, RegisterUserPayload } from "../types/types";
+import { useEffect, useState } from "react";
 
 
 export const useAuth = () => {
     const queryClient = useQueryClient();
-    const token = localStorage.getItem("token");
+    const [token, setToken] = useState<string | null>(null);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        setToken(storedToken);
+    }, []);
     const navigate = useNavigate();
 
     const {data: user, isLoading} = useQuery({
@@ -24,13 +30,23 @@ export const useAuth = () => {
             loginApi(credentials),
         onSuccess: (data) => {
             localStorage.setItem('token', data.token);
+            setToken(data.token);
             queryClient.setQueryData(['auth-user'], data.user);
             navigate('/home');
         }
     })
 
+    const registerMutation = useMutation({
+        mutationFn: (registerUserPayload: RegisterUserPayload) =>
+            registerApi(registerUserPayload),
+        onSuccess: () => {
+            navigate('/login')
+        }
+    })
+
     const logout = () => {
         localStorage.removeItem('token'); 
+        setToken(null);
         queryClient.removeQueries({ queryKey: ['auth-user'] });
         navigate('/login');
     };
@@ -39,10 +55,15 @@ export const useAuth = () => {
         return loginMutation.mutateAsync(credentials);
     }
 
+    const register = async(registerUserPayload: RegisterUserPayload) => {
+        return registerMutation.mutateAsync(registerUserPayload);
+    }
+
     return {
         user,
         login,
         logout,
+        register,
         isLoading: isLoading || loginMutation.isPending
     }
 }

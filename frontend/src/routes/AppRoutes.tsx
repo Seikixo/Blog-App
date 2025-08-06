@@ -5,6 +5,7 @@ import AuthLayout from '../layouts/AuthLayout';
 import { useAuth } from '../hooks/useAuth';
 import Home from '../pages/Home';
 import MyPosts from '../pages/MyPosts';
+import Register from '../pages/Register';
 
 function DefaultRedirect() {
   const { user } = useAuth();
@@ -18,6 +19,7 @@ export default function AppRoutes() {
         <Route path="/" element={<DefaultRedirect />} />
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register/>}/>
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
