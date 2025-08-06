@@ -47,7 +47,7 @@ Users can register, log in, create posts, and interact with blog content in a re
 - cd backend
 - npm install
 
-- cd backend
+- cd ../fronted
 - npm install
 
 ### 4. Running the App
