@@ -11,6 +11,17 @@ export const getAllPost = async() => {
     }
 }
 
+export const myPost = async() => {
+    try {
+        debugger;
+        const response = await axiosInstance.get('/posts/me');
+        return response.data;
+    }
+    catch(error) {
+        throw error;
+    }    
+}
+
 export const likePost = async(postId: string) => {
     try {
         const response = await axiosInstance.post(`/posts/${postId}/like`);

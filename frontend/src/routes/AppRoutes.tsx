@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../pages/Login';
-import Blog from '../pages/Blog';
 import ProtectedRoute from './ProtectedRoute';
 import AuthLayout from '../layouts/AuthLayout';
 import { useAuth } from '../hooks/useAuth';
 import Home from '../pages/Home';
+import MyPosts from '../pages/MyPosts';
 
 function DefaultRedirect() {
   const { user } = useAuth();
@@ -21,7 +21,7 @@ export default function AppRoutes() {
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/myposts" element={<MyPosts />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -37,15 +37,15 @@ export default function Header() {
                 </NavbarLink>
 
                 <NavbarLink 
-                    href="/blog" 
-                    active={location.pathname === '/blog'}
+                    href="/myposts" 
+                    active={location.pathname === '/myposts'}
                     className="text-white"
                     onClick={(e) => {
                     e.preventDefault();
-                    navigate('/blog');
+                    navigate('/myposts');
                     }}
                 >
-                    Blog
+                    My Posts
                 </NavbarLink>
                 <NavbarLink 
                     className="text-white cursor-pointer"

@@ -17,7 +17,7 @@ import { usePost } from "../hooks/usePost";
 import type { Post } from "../types/types";
 
 function Posts () {
-    const { data: posts, isLoading, isError, like, dislike } = usePost();
+    const { allPosts, isLoadingAllPost, isErrorAllPost, like, dislike } = usePost();
 
 
     const formatDate = (dateString: string) => {
@@ -48,9 +48,9 @@ function Posts () {
     };
 
     const renderedPosts = useMemo(() => {
-        if (!posts || posts.length === 0) return null;
+        if (!allPosts || allPosts.length === 0) return null;
 
-        return posts.map((post: Post) => (
+        return allPosts.map((post: Post) => (
         <Card key={post._id} className="mb-4 sm:mb-6 hover:shadow-lg transition-shadow duration-300">
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-center space-x-3 mb-4">
@@ -93,7 +93,7 @@ function Posts () {
                 size="xs"
                 color="light"
                 onClick={() => handleLike(post._id)}
-                className="flex items-center space-x-1 text-xs hover:bg-green-50 hover:text-green-600 transition-colors"
+                className="flex items-center space-x-1 text-xs hover:bg-green-50 hover:text-green-600 transition-colors cursor-pointer"
                 >
                 <HiThumbUp className="w-3 h-3 sm:w-4 sm:h-4" />
                     {post.likesCount}
@@ -103,7 +103,7 @@ function Posts () {
                 size="xs"
                 color="light"
                 onClick={() => handleDislike(post._id)}
-                className="flex items-center space-x-1 text-xs hover:bg-red-50 hover:text-red-600 transition-colors"
+                className="flex items-center space-x-1 text-xs hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
                 >
                 <HiThumbDown className="w-3 h-3 sm:w-4 sm:h-4" />
                     {post.dislikesCount}
@@ -120,9 +120,9 @@ function Posts () {
             </div>
         </Card>
         ));
-    }, [posts]);
+    }, [allPosts]);
 
-    if (isLoading) {
+    if (isLoadingAllPost) {
         return (
         <div className="flex justify-center items-center py-12">
             <Spinner aria-label="Loading posts" size="xl" />
@@ -133,7 +133,7 @@ function Posts () {
         );
     }
 
-    if (isError) {
+    if (isErrorAllPost) {
         return (
         <Alert color="failure" className="mx-4">
             <span className="font-medium">Error!</span> Failed to load posts. Please try again later.
@@ -141,7 +141,7 @@ function Posts () {
         );
     }
 
-    if (!posts || posts.length === 0) {
+    if (!allPosts || allPosts.length === 0) {
         return (
         <Alert color="info" className="mx-4">
             <span className="font-medium">No posts found.</span> Be the first to create a post!
@@ -163,7 +163,7 @@ function Posts () {
             <div className="mb-4 sm:mb-6 flex items-center space-x-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                 <HiUser className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                 <span>
-                {posts?.length || 0} post{posts?.length !== 1 ? 's' : ''} available
+                {allPosts?.length || 0} post{allPosts?.length !== 1 ? 's' : ''} available
                 </span>
             </div>
 
