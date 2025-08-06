@@ -14,8 +14,8 @@ const validateInput = (name, email, password) => {
     errors.push('Please provide a valid email address');
   }
   
-  if (password && password.length < 6) {
-    errors.push('Password must be at least 6 characters long');
+  if (password && password.length < 8) {
+    errors.push('Password must be at least 8 characters long');
   }
   
   return errors;
