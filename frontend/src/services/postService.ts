@@ -22,6 +22,24 @@ export const myPost = async() => {
     }    
 }
 
+export const updatePost = async(postId: string, updatedData: { title?: string; content?: string }) => {
+    try {
+        const response = await axiosInstance.put(`/posts/${postId}`, updatedData);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deletePost = async(postId: string) => {
+    try {
+        const response = await axiosInstance.delete(`/posts/${postId}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const likePost = async(postId: string) => {
     try {
         const response = await axiosInstance.post(`/posts/${postId}/like`);

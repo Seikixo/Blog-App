@@ -88,35 +88,35 @@ function Posts () {
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3 sm:space-y-0">
-                       <div className="flex items-center space-x-2 sm:space-x-4">
-                <Button
-                size="xs"
-                color="light"
-                onClick={() => handleLike(post._id)}
-                className="flex items-center space-x-1 text-xs hover:bg-green-50 hover:text-green-600 transition-colors cursor-pointer"
-                >
-                <HiThumbUp className="w-3 h-3 sm:w-4 sm:h-4" />
-                    {post.likesCount}
-                </Button>
-                
-                <Button
-                size="xs"
-                color="light"
-                onClick={() => handleDislike(post._id)}
-                className="flex items-center space-x-1 text-xs hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
-                >
-                <HiThumbDown className="w-3 h-3 sm:w-4 sm:h-4" />
-                    {post.dislikesCount}
-                </Button>
-            </div>
-
-            {post.updatedAt !== post.createdAt && (
-                <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                <span className="hidden sm:inline">Updated: </span>
-                <span className="sm:hidden">Updated </span>
-                {formatDate(post.updatedAt)}
+                <div className="flex items-center space-x-2 sm:space-x-4">
+                    <Button
+                    size="xs"
+                    color="light"
+                    onClick={() => handleLike(post._id)}
+                    className="flex items-center space-x-1 text-xs hover:bg-green-50 hover:text-green-600 transition-colors cursor-pointer"
+                    >
+                    <HiThumbUp className="w-3 h-3 sm:w-4 sm:h-4" />
+                        {post.likesCount}
+                    </Button>
+                    
+                    <Button
+                    size="xs"
+                    color="light"
+                    onClick={() => handleDislike(post._id)}
+                    className="flex items-center space-x-1 text-xs hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
+                    >
+                    <HiThumbDown className="w-3 h-3 sm:w-4 sm:h-4" />
+                        {post.dislikesCount}
+                    </Button>
                 </div>
-            )}
+
+                {post.updatedAt !== post.createdAt && (
+                    <div className="text-xs text-gray-500 dark:text-gray-400 truncate w-full self-end">
+                    <span className="hidden sm:inline">Updated: </span>
+                    <span className="sm:hidden">Updated </span>
+                    {formatDate(post.updatedAt)}
+                    </div>
+                )}
             </div>
         </Card>
         ));

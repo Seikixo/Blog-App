@@ -1,6 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { getAllPost, myPost } from "../services/postService"
-import { likePost as likePostApi, dislikePost as dislikePostApi } from "../services/postService"
+import { 
+  getAllPost, 
+  myPost, 
+  likePost as likePostApi, 
+  dislikePost as dislikePostApi, 
+  deletePost as deletePostApi, 
+  updatePost as updatePostApi 
+} from "../services/postService";
 import type { Post } from "../types/types";
 
 export const usePost = () => {
@@ -16,6 +22,33 @@ export const usePost = () => {
         queryKey:['my-posts'],
         queryFn: myPost
     })
+
+    const updatePostMutation = useMutation({
+    mutationFn: ({ postId, updatedData }: { postId: string; updatedData: { title?: string; content?: string } }) =>
+        updatePostApi(postId, updatedData),
+
+    onSuccess: (_data) => {
+        queryClient.invalidateQueries({ queryKey: ['all-post'] });
+        queryClient.invalidateQueries({ queryKey: ['my-posts'] });
+    },
+
+    onError: (err) => {
+        console.error("Failed to update post:", err);
+    }
+    });
+
+    const deletePostMutation = useMutation({
+    mutationFn: (postId: string) => deletePostApi(postId),
+
+    onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['all-post'] });
+        queryClient.invalidateQueries({ queryKey: ['my-posts'] });
+    },
+
+    onError: (err) => {
+        console.error("Failed to delete post:", err);
+    }
+    });
     
     const likeMutation = useMutation({
         mutationFn: (postId: string) => likePostApi(postId),
@@ -120,6 +153,14 @@ export const usePost = () => {
         }
     })
 
+    const updatePost = async (postId: string, updatedData: { title?: string; content?: string }) => {
+    return updatePostMutation.mutateAsync({ postId, updatedData });
+    };
+
+    const deletePost = async (postId: string) => {
+    return deletePostMutation.mutateAsync(postId);
+    };
+
     const like = async(postId: string) => {
         return likeMutation.mutateAsync(postId);
     }
@@ -137,5 +178,7 @@ export const usePost = () => {
         isErrorMyPost,
         like,
         dislike,
+        updatePost,
+        deletePost
     }
 }
