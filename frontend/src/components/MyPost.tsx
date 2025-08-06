@@ -12,18 +12,22 @@ import {
   TextInput,
   Textarea,
 } from "flowbite-react";
-import { HiClock, HiOutlineTrash, HiOutlinePencil } from "react-icons/hi";
+import { HiClock, HiOutlineTrash, HiOutlinePencil, HiInformationCircle } from "react-icons/hi";
 
 
 
 function MyPost() {
-    const {myPosts, isLoadingMyPost, isErrorMyPost, deletePost, updatePost} = usePost();
+    const {myPosts, isLoadingMyPost, isErrorMyPost, deletePost, updatePost, createPost} = usePost();
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [selectedPost, setSelectedPost] = useState<Post | null>(null);
     const [updatedTitle, setUpdatedTitle] = useState("");
     const [updatedContent, setUpdatedContent] = useState("");
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [newTitle, setNewTitle] = useState("");
+    const [newContent, setNewContent] = useState("");
+    const [error, setError] = useState('')    
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -52,6 +56,18 @@ function MyPost() {
         setShowUpdateModal(false);
         }
     };
+
+    const handleCreate = async () => {
+      try {
+        await createPost({ title: newTitle, content: newContent });
+          setNewTitle("");
+          setNewContent("");
+          setShowCreateModal(false);
+      }        
+      catch(error: any) {
+        setError(error?.response?.data?.message || 'Login failed');
+      }
+    }
 
     const openDeleteModal = (post: Post) => {
         setSelectedPost(post);
@@ -150,20 +166,22 @@ function MyPost() {
     );
   }
 
-  if (!myPosts || myPosts.length === 0) {
-    return (
-      <Alert color="info" className="mx-4">
-        <span className="font-medium">No posts found.</span> Be the first to create a post!
-      </Alert>
-    );
-  }
-
   return (
     <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
         <div className="mb-6 sm:mb-8">
+          <div className="flex justify-between">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            My Posts
+              My Posts
             </h1>
+            <Button className="mb-4 cursor-pointer" color="green" onClick={() => setShowCreateModal(true)}>
+              + Add Post
+            </Button>
+          </div>
+          {myPosts && myPosts.length === 0 && (
+            <Alert color="info">
+              <span className="font-medium">No posts found.</span> Be the first to create a post!
+            </Alert>
+          )}
         </div>
        <div className="space-y-4 sm:space-y-6">{renderingMyPosts}</div>
         <Modal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} size="md">
@@ -190,10 +208,10 @@ function MyPost() {
         </Modal>   
 
         <Modal
-        show={showUpdateModal}
-        onClose={() => setShowUpdateModal(false)}
-        size="md"
-        popup
+          show={showUpdateModal}
+          onClose={() => setShowUpdateModal(false)}
+          size="md"
+          popup
         >
             <div className="p-6">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
@@ -227,6 +245,57 @@ function MyPost() {
                 </Button>
               </div>
             </div>
+        </Modal>
+        <Modal
+          show={showCreateModal}
+          onClose={() => setShowCreateModal(false)}
+          size="md"
+          popup
+        >      
+          <div className="p-6">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+              Create Post
+            </h3>
+            {error && (
+              <Alert className="flex w-full mb-4" color="failure" icon={HiInformationCircle}>
+                {error}
+              </Alert>
+            )}  
+            <form className="space-y-4 mb-6">
+              <TextInput
+                id="new-title"
+                placeholder="Enter title"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+                required
+              />
+              <Textarea
+                id="new-content"
+                placeholder="Enter content"
+                value={newContent}
+                onChange={(e) => setNewContent(e.target.value)}
+                rows={5}
+                required
+              />
+            </form>
+
+            <div className="flex justify-end gap-2">
+              <Button
+                className="cursor-pointer"
+                color="green"
+                onClick={handleCreate}
+              >
+                Create
+              </Button>
+              <Button
+                className="cursor-pointer"
+                color="gray"
+                onClick={() => setShowCreateModal(false)}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
         </Modal>
     </div>
   );

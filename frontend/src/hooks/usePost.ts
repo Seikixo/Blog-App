@@ -5,7 +5,8 @@ import {
   likePost as likePostApi, 
   dislikePost as dislikePostApi, 
   deletePost as deletePostApi, 
-  updatePost as updatePostApi 
+  updatePost as updatePostApi, 
+  createPost as createPostApi
 } from "../services/postService";
 import type { Post } from "../types/types";
 
@@ -22,6 +23,19 @@ export const usePost = () => {
         queryKey:['my-posts'],
         queryFn: myPost
     })
+
+    const createPostMutation = useMutation({
+    mutationFn: (newPost: { title: string; content: string }) => createPostApi(newPost),
+
+    onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['all-post'] });
+        queryClient.invalidateQueries({ queryKey: ['my-posts'] });
+    },
+
+    onError: (err) => {
+        console.error("Failed to create post:", err);
+    }
+    });
 
     const updatePostMutation = useMutation({
     mutationFn: ({ postId, updatedData }: { postId: string; updatedData: { title?: string; content?: string } }) =>
@@ -153,6 +167,10 @@ export const usePost = () => {
         }
     })
 
+    const createPost = async (newPost: { title: string; content: string }) => {
+    return createPostMutation.mutateAsync(newPost);
+    };
+
     const updatePost = async (postId: string, updatedData: { title?: string; content?: string }) => {
     return updatePostMutation.mutateAsync({ postId, updatedData });
     };
@@ -178,6 +196,7 @@ export const usePost = () => {
         isErrorMyPost,
         like,
         dislike,
+        createPost,
         updatePost,
         deletePost
     }

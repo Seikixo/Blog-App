@@ -22,6 +22,15 @@ export const myPost = async() => {
     }    
 }
 
+export const createPost = async(newPost: { title: string; content: string }) => {
+    try {
+        const response = await axiosInstance.post('/posts', newPost);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const updatePost = async(postId: string, updatedData: { title?: string; content?: string }) => {
     try {
         const response = await axiosInstance.put(`/posts/${postId}`, updatedData);
