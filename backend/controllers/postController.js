@@ -146,9 +146,17 @@ const getUserPosts = async (req, res) => {
   try {
     const posts = await Post.find({ user: req.user._id })
       .populate('user', 'name email')
+      .populate('likes', 'name')     
+      .populate('dislikes', 'name')    
       .sort({ createdAt: -1 });
-      
-    res.json(posts);
+
+    const formatted = posts.map(post => ({
+      ...post.toObject(),
+      likesCount: post.likes.length,
+      dislikesCount: post.dislikes.length,
+    }));
+
+    res.json(formatted);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
