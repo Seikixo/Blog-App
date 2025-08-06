@@ -10,3 +10,23 @@ export const getAllPost = async() => {
         throw error;
     }
 }
+
+export const likePost = async(postId: string) => {
+    try {
+        const response = await axiosInstance.post(`/posts/${postId}/like`);
+        return response.data;
+    }
+    catch(error) {
+        throw error;
+    }
+}
+
+export const dislikePost = async(postId: string) => {
+    try {
+        const response = await axiosInstance.post(`/posts/${postId}/dislike`);
+        return response.data;
+    }
+    catch(error) {
+        throw error;
+    }
+}

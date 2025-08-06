@@ -1,26 +1,24 @@
-import React, { useMemo, useState } from "react"
+import React, { useMemo } from "react"
 import { 
   Card, 
   Avatar, 
   Button, 
   Badge, 
   Spinner,
-  Alert
+  Alert,
 } from "flowbite-react";
 import { 
   HiThumbUp, 
   HiThumbDown, 
   HiClock, 
-  HiUser
+  HiUser,
 } from "react-icons/hi";
 import { usePost } from "../hooks/usePost";
 import type { Post } from "../types/types";
 
 function Posts () {
-    const { data: posts, isLoading, isError } = usePost();
+    const { data: posts, isLoading, isError, like, dislike } = usePost();
 
-    const [likedPosts, setLikedPosts] = useState(new Set());
-    const [dislikedPosts, setDislikedPosts] = useState(new Set());
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -33,41 +31,23 @@ function Posts () {
         });
     };
 
-    const handleLike = (postId: string) => {
-        setLikedPosts(prev => {
-        const newSet = new Set(prev);
-        if (newSet.has(postId)) {
-            newSet.delete(postId);
-        } else {
-            newSet.add(postId);
-            setDislikedPosts(prevDislikes => {
-            const newDislikes = new Set(prevDislikes);
-            newDislikes.delete(postId);
-            return newDislikes;
-            });
+    const handleLike = async (postId: string): Promise<void> => {
+        try {
+        await like(postId);
+        } catch (error) {
+        console.error("Failed to like post:", error);
         }
-        return newSet;
-        });
     };
 
-    const handleDislike = (postId: string) => {
-        setDislikedPosts(prev => {
-        const newSet = new Set(prev);
-        if (newSet.has(postId)) {
-            newSet.delete(postId);
-        } else {
-            newSet.add(postId);
-            setLikedPosts(prevLikes => {
-            const newLikes = new Set(prevLikes);
-            newLikes.delete(postId);
-            return newLikes;
-            });
+    const handleDislike = async (postId: string): Promise<void> => {
+        try {
+        await dislike(postId);
+        } catch (error) {
+        console.error("Failed to dislike post:", error);
         }
-        return newSet;
-        });
     };
 
-        const renderedPosts = useMemo(() => {
+    const renderedPosts = useMemo(() => {
         if (!posts || posts.length === 0) return null;
 
         return posts.map((post: Post) => (
@@ -108,25 +88,25 @@ function Posts () {
             </div>
 
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3 sm:space-y-0">
-            <div className="flex items-center space-x-2 sm:space-x-4">
+                       <div className="flex items-center space-x-2 sm:space-x-4">
                 <Button
                 size="xs"
-                color={likedPosts.has(post._id) ? "success" : "light"}
+                color="light"
                 onClick={() => handleLike(post._id)}
-                className="flex items-center space-x-1 text-xs cursor-pointer"
+                className="flex items-center space-x-1 text-xs hover:bg-green-50 hover:text-green-600 transition-colors"
                 >
                 <HiThumbUp className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>{(post.likesCount || 0) + (likedPosts.has(post._id) ? 1 : 0)}</span>
+                    {post.likesCount}
                 </Button>
                 
                 <Button
                 size="xs"
-                color={dislikedPosts.has(post._id) ? "failure" : "light"}
+                color="light"
                 onClick={() => handleDislike(post._id)}
-                className="flex items-center space-x-1 text-xs cursor-pointer"
+                className="flex items-center space-x-1 text-xs hover:bg-red-50 hover:text-red-600 transition-colors"
                 >
                 <HiThumbDown className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span>{(post.dislikesCount || 0) + (dislikedPosts.has(post._id) ? 1 : 0)}</span>
+                    {post.dislikesCount}
                 </Button>
             </div>
 
@@ -140,7 +120,7 @@ function Posts () {
             </div>
         </Card>
         ));
-    }, [posts, likedPosts, dislikedPosts]);
+    }, [posts]);
 
     if (isLoading) {
         return (
@@ -171,25 +151,25 @@ function Posts () {
 
     return (
         <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-        <div className="mb-6 sm:mb-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            Blog Posts
-            </h1>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
-            Discover and engage with our community posts
-            </p>
-        </div>
+            <div className="mb-6 sm:mb-8">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                Blog Posts
+                </h1>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                Discover and engage with our community posts
+                </p>
+            </div>
 
-        <div className="mb-4 sm:mb-6 flex items-center space-x-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-            <HiUser className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-            <span>
-            {posts?.length || 0} post{posts?.length !== 1 ? 's' : ''} available
-            </span>
-        </div>
+            <div className="mb-4 sm:mb-6 flex items-center space-x-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                <HiUser className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                <span>
+                {posts?.length || 0} post{posts?.length !== 1 ? 's' : ''} available
+                </span>
+            </div>
 
-        <div className="space-y-4 sm:space-y-6">
-            {renderedPosts}
-        </div>
+            <div className="space-y-4 sm:space-y-6">
+                {renderedPosts}
+            </div>
         </div>
     );
 }
