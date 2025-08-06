@@ -36,26 +36,26 @@ Users can register, log in, create posts, and interact with blog content in a re
 
 ### 1. Clone the repository
 
-git clone https://github.com/Seikixo/Blog-App.git
-cd Blog-App
+- git clone https://github.com/Seikixo/Blog-App.git
+- cd Blog-App
 
 ### 2. Backend .env
-PORT=
-MONGO_URI=
+- PORT=
+- MONGO_URI=
 
 ### 3. Install dependencies
-cd backend
-npm install
+- cd backend
+- npm install
 
-cd backend
-npm install
+- cd backend
+- npm install
 
 ### 4. Running the App
 
-cd backend
-node server.js
-Runs on http://localhost:8000
+- cd backend
+- node server.js
+- Runs on http://localhost:8000
 
-cd frontend
-npm run dev
-Runs on http://localhost:5173
+- cd frontend
+- npm run dev
+- Runs on http://localhost:5173
