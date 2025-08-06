@@ -111,7 +111,7 @@ function Posts () {
                 </div>
 
                 {post.updatedAt !== post.createdAt && (
-                    <div className="text-xs text-gray-500 dark:text-gray-400 truncate w-full self-end">
+                    <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
                     <span className="hidden sm:inline">Updated: </span>
                     <span className="sm:hidden">Updated </span>
                     {formatDate(post.updatedAt)}

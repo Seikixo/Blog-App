@@ -123,10 +123,10 @@ function MyPost() {
           </p>
         </div>
         {post.updatedAt !== post.createdAt && (
-            <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
+            <div className="flex text-xs text-gray-500 dark:text-gray-400 truncate w-full justify-end">
             <span className="hidden sm:inline">Updated: </span>
             <span className="sm:hidden">Updated </span>
-            {formatDate(post.updatedAt)}
+            { formatDate(post.updatedAt)  }
             </div>
         )}
       </Card>
@@ -179,10 +179,10 @@ function MyPost() {
                 </div>
                 
                 <div className="flex justify-end gap-2">
-                <Button color="red" onClick={handleDelete}>
+                <Button className="cursor-pointer" color="red" onClick={handleDelete}>
                     Delete
                 </Button>
-                <Button color="gray" onClick={() => setShowDeleteModal(false)}>
+                <Button className="cursor-pointer" color="gray" onClick={() => setShowDeleteModal(false)}>
                     Cancel
                 </Button>
                 </div>
@@ -196,11 +196,11 @@ function MyPost() {
         popup
         >
             <div className="p-6">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-                Update Post
-                </h3>
-                
-                <form className="space-y-4 mb-6">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+              Update Post
+              </h3>
+              
+              <form className="space-y-4 mb-6">
                 <TextInput
                     id="title"
                     placeholder="Enter title"
@@ -216,16 +216,16 @@ function MyPost() {
                     rows={5}
                     required
                 />
-                </form>
+              </form>
                 
-                <div className="flex justify-end gap-2">
-                <Button color="blue" onClick={handleUpdate}>
+              <div className="flex justify-end gap-2">
+                <Button className="cursor-pointer" color="blue" onClick={handleUpdate}>
                     Save Changes
                 </Button>
-                <Button color="gray" onClick={() => setShowUpdateModal(false)}>
+                <Button className="cursor-pointer" color="gray" onClick={() => setShowUpdateModal(false)}>
                     Cancel
                 </Button>
-                </div>
+              </div>
             </div>
         </Modal>
     </div>

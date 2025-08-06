@@ -4,6 +4,15 @@ export interface User {
   _id: string;
   name: string;
   email: string;
+  password?: string;
+  currentPassword?: string;
+}
+
+export interface UpdateUserPayload {
+  name: string;
+  email: string;
+  password?: string;
+  currentPassword?: string;
 }
 
 export interface Post {

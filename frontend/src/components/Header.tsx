@@ -1,18 +1,20 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import Profile from './Profile';
 import {
+    Modal,
   Navbar,
   NavbarCollapse,
   NavbarLink,
   NavbarToggle,
 } from 'flowbite-react';
+import { useState } from 'react';
 
 export default function Header() {
   const { logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
-
+  const [showProfileModal, setShowProfileModal] = useState(false);
     return(
         <>
         <Navbar fluid className="bg-blue-600 text-white">
@@ -47,6 +49,12 @@ export default function Header() {
                 >
                     My Posts
                 </NavbarLink>
+                <NavbarLink
+                    className="text-white cursor-pointer"
+                    onClick={() => setShowProfileModal(true)}
+                >
+                    Profile
+                </NavbarLink>
                 <NavbarLink 
                     className="text-white cursor-pointer"
                     onClick={(e) => {
@@ -57,7 +65,21 @@ export default function Header() {
                     Logout
                 </NavbarLink>
             </NavbarCollapse>
-        </Navbar>        
+        </Navbar>  
+        <Modal
+            show={showProfileModal}
+            onClose={() => setShowProfileModal(false)}
+            size="md"
+            popup
+        >
+            <div className="p-6">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                Update Profile
+            </h3>
+
+            <Profile onClose={() => setShowProfileModal(false)} />
+            </div>
+        </Modal>      
         </>
     )
 }
