@@ -6,8 +6,9 @@ export const getUserProfile = async() => {
         const response = await axiosInstance.get('/users/profile');
         return response.data;
     }
-    catch(error) {
-        throw error;
+    catch(error: any) {
+        const serverMessage = error.response?.data?.message || error.message;
+        throw new Error(serverMessage);
     }
 }
 
@@ -16,7 +17,8 @@ export const updateUserProfile = async(data: UpdateUserPayload) => {
         const response = await axiosInstance.put('/users/profile', data);
         return response.data;        
     }
-    catch(error) {
-        throw error;
+    catch(error: any) {
+        const serverMessage = error.response?.data?.message || error.message;
+        throw new Error(serverMessage);
     }
 }

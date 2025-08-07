@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { TextInput, Button, Spinner, Toast } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { TextInput, Button, Spinner, Toast, Alert } from "flowbite-react";
 import { useProfile } from "../hooks/useProfile";
-import { HiCheck, HiExclamation } from "react-icons/hi";
+import { HiCheck, HiExclamation, HiInformationCircle } from "react-icons/hi";
 
 interface ProfileProps {
   onClose: () => void;
@@ -15,6 +15,13 @@ export default function Profile({ onClose }: ProfileProps) {
   const [email, setEmail] = useState(profile?.email || "");
   const [password, setPassword] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
+
+  useEffect(() => {
+    if (profile) {
+      setName(profile.name || "");
+      setEmail(profile.email || "");
+    }
+  }, [profile]);
 
 const handleUpdate = () => {
   update(
@@ -41,7 +48,7 @@ const handleUpdate = () => {
 
   return (
     <>
-    {updateError && <p className="text-red-500">Update failed: {updateError.message}</p>}
+    {updateError && (<Alert className='flex w-full mb-4' color="failure" icon={HiInformationCircle}>{updateError.message}</Alert>)}
 
         <form className="space-y-4 mb-6">
             <TextInput

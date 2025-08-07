@@ -11,27 +11,27 @@ function Reaction({_id, likesCount, dislikesCount}: Reaction) {
     const handleDislike = useCallback(() => dislike(_id), [dislike, _id]);
 
     return(
-            <div className="flex items-center space-x-2 sm:space-x-4">
-                <Button
-                size="xs"
-                color="light"
-                onClick={handleLike}
-                className="flex items-center space-x-1 text-xs hover:bg-green-50 hover:text-green-600 transition-colors cursor-pointer"
-                >
-                <HiThumbUp className="w-3 h-3 sm:w-4 sm:h-4" />
-                    {likesCount}
-                </Button>
-                
-                <Button
-                size="xs"
-                color="light"
-                onClick={handleDislike}
-                className="flex items-center space-x-1 text-xs hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
-                >
-                <HiThumbDown className="w-3 h-3 sm:w-4 sm:h-4" />
-                    {dislikesCount}
-                </Button>
-            </div>        
+        <div className="flex items-center space-x-2 sm:space-x-4">
+            <Button
+            size="xs"
+            color="light"
+            onClick={handleLike}
+            className="flex items-center space-x-1 text-xs hover:bg-green-50 hover:text-green-600 transition-colors cursor-pointer"
+            >
+            <HiThumbUp className="w-3 h-3 sm:w-4 sm:h-4" />
+                {likesCount}
+            </Button>
+            
+            <Button
+            size="xs"
+            color="light"
+            onClick={handleDislike}
+            className="flex items-center space-x-1 text-xs hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer"
+            >
+            <HiThumbDown className="w-3 h-3 sm:w-4 sm:h-4" />
+                {dislikesCount}
+            </Button>
+        </div>        
     )
 }
 
