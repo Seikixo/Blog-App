@@ -35,6 +35,12 @@ export interface Post {
   dislikesCount: number;
 }
 
+export interface Reaction {
+  _id: string;
+  likesCount: number;
+  dislikesCount: number;    
+}
+
 export interface Credentials {
   email: string; 
   password: string;

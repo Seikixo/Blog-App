@@ -9,6 +9,7 @@ import {
   createPost as createPostApi
 } from "../services/postService";
 import type { Post } from "../types/types";
+import { useCallback } from "react";
 
 export const usePost = () => {
 
@@ -167,25 +168,25 @@ export const usePost = () => {
         }
     })
 
-    const createPost = async (newPost: { title: string; content: string }) => {
-    return createPostMutation.mutateAsync(newPost);
-    };
+    const createPost = useCallback(async (newPost: { title: string; content: string }) => {
+        return createPostMutation.mutateAsync(newPost);
+    }, [createPostMutation]);
 
-    const updatePost = async (postId: string, updatedData: { title?: string; content?: string }) => {
-    return updatePostMutation.mutateAsync({ postId, updatedData });
-    };
+    const updatePost = useCallback(async (postId: string, updatedData: { title?: string; content?: string }) => {
+        return updatePostMutation.mutateAsync({ postId, updatedData });
+    }, [updatePostMutation]);
 
-    const deletePost = async (postId: string) => {
-    return deletePostMutation.mutateAsync(postId);
-    };
+    const deletePost = useCallback(async (postId: string) => {
+        return deletePostMutation.mutateAsync(postId);
+    }, [deletePostMutation]);
 
-    const like = async(postId: string) => {
+    const like = useCallback(async (postId: string) => {
         return likeMutation.mutateAsync(postId);
-    }
+    }, [likeMutation]);
 
-    const dislike = async(postId: string) => {
+    const dislike = useCallback(async (postId: string) => {
         return dislikeMutation.mutateAsync(postId);
-    }
+    }, [dislikeMutation]);
 
     return{
         allPosts,
