@@ -28,7 +28,7 @@ Users can register, log in, create posts, and interact with blog content in a re
 | Frontend    | React, Vite, TypeScript, Tailwind CSS, Flowbite |
 | Backend     | Node.js, Express.js, JWT, bcrypt |
 | Database    | MongoDB with Mongoose          |
-| Tooling     | React Query, React Router Axios, Dotenv     |
+| Tooling     | React Query, React Router, Axios, Dotenv     |
 
 ---
 
