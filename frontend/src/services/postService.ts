@@ -13,7 +13,6 @@ export const getAllPost = async() => {
 
 export const myPost = async() => {
     try {
-        debugger;
         const response = await axiosInstance.get('/posts/me');
         return response.data;
     }
