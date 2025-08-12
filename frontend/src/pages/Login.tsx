@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
-import { HiInformationCircle } from "react-icons/hi";
+import { HiInformationCircle, HiLockClosed, HiMail } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 export default function Login() {
@@ -32,11 +32,11 @@ export default function Login() {
 
             <div>
             <Label htmlFor="email">Email</Label>
-            <TextInput id="email" type="email" value={credentials.email} onChange={(e) => setCredentials({...credentials, email:e.target.value})} required />
+            <TextInput id="email" icon={HiMail} type="email" value={credentials.email} onChange={(e) => setCredentials({...credentials, email:e.target.value})} required />
             </div>
             <div>
             <Label htmlFor="password">Password</Label>
-            <TextInput id="password" type="password" value={credentials.password} onChange={(e) => setCredentials({ ...credentials, password: e.target.value })} required />
+            <TextInput id="password" icon={HiLockClosed} type="password" value={credentials.password} onChange={(e) => setCredentials({ ...credentials, password: e.target.value })} required />
             </div>
             <Button type="submit" className="w-full cursor-pointer mt-14">{isLoading ? <Spinner/> : "Login"}</Button>
             <Link to={"/register"}>Register</Link>

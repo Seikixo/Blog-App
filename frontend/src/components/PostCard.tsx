@@ -8,7 +8,7 @@ import {
 
   HiClock, 
 } from "react-icons/hi";
-import type { Post } from "../types/types";
+import type { Post } from "../interface/interface";
 import Reaction from "./Reaction";
 
 interface PostCardProps {

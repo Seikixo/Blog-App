@@ -8,7 +8,7 @@ import {
   updatePost as updatePostApi, 
   createPost as createPostApi
 } from "../services/postService";
-import type { Post } from "../types/types";
+import type { Post } from "../interface/interface";
 import { useCallback } from "react";
 
 export const usePost = () => {

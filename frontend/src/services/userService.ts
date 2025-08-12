@@ -1,4 +1,4 @@
-import type { UpdateUserPayload } from "../types/types";
+import type { UpdateUserPayload } from "../interface/interface";
 import axiosInstance from "./axiosService"
 
 export const getUserProfile = async() => {

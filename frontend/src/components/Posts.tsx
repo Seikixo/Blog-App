@@ -7,7 +7,7 @@ import {
   HiUser,
 } from "react-icons/hi";
 import { usePost } from "../hooks/usePost";
-import type { Post } from "../types/types";
+import type { Post } from "../interface/interface";
 import PostCard from "./PostCard";
 import Search from "./Search";
 

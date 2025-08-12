@@ -1,4 +1,4 @@
-import type { Credentials, RegisterUserPayload } from "../types/types";
+import type { Credentials, RegisterUserPayload } from "../interface/interface";
 import axiosInstance from "./axiosService"
 
 export const login = async(credentials: Credentials) => {

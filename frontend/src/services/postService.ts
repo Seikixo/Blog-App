@@ -53,8 +53,9 @@ export const likePost = async(postId: string) => {
         const response = await axiosInstance.post(`/posts/${postId}/like`);
         return response.data;
     }
-    catch(error) {
-        throw error;
+    catch(error: any) {
+        const serverError = error.response?.data?.message || error.message;
+        throw new Error(serverError);
     }
 }
 
@@ -63,7 +64,8 @@ export const dislikePost = async(postId: string) => {
         const response = await axiosInstance.post(`/posts/${postId}/dislike`);
         return response.data;
     }
-    catch(error) {
-        throw error;
+    catch(error: any) {
+        const serverError = error.response?.data?.message || error.message;
+        throw new Error(serverError);
     }
 }

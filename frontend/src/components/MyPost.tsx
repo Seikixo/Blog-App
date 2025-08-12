@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { usePost } from "../hooks/usePost";
-import type { Post } from "../types/types";
+import type { Post } from "../interface/interface";
 import {
   Alert,
   Avatar,

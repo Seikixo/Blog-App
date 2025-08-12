@@ -1,5 +1,6 @@
 import { TextInput } from "flowbite-react";
 import React from "react";
+import { HiMagnifyingGlass } from "react-icons/hi2";
 
 interface SearchProps {
     onChange: (text: string) => void;
@@ -8,7 +9,7 @@ interface SearchProps {
 function Search({ onChange }: SearchProps) {
 
     return(
-        <TextInput id="search" name="search" type="text" placeholder="Search"  onChange={(e) => onChange(e.target.value)}></TextInput>
+        <TextInput id="search" icon={HiMagnifyingGlass} name="search" type="text" placeholder="Search"  onChange={(e) => onChange(e.target.value)}></TextInput>
     )
     
 }

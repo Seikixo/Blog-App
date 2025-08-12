@@ -2,7 +2,7 @@ import { Button } from "flowbite-react";
 import { HiThumbDown, HiThumbUp } from "react-icons/hi";
 import { usePost } from "../hooks/usePost";
 import React, { useCallback } from "react";
-import type { Reaction } from "../types/types";
+import type { Reaction } from "../interface/interface";
 
 
 function Reaction({_id, likesCount, dislikesCount}: Reaction) {

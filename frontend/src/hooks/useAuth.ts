@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { login as loginApi, register as registerApi } from "../services/authService";
 import { getUserProfile } from "../services/userService";
 import { useNavigate } from "react-router-dom";
-import type { Credentials, RegisterUserPayload } from "../types/types";
+import type { Credentials, RegisterUserPayload } from "../interface/interface";
 import { useState } from "react";
 
 
